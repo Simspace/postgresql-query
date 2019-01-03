@@ -27,6 +27,7 @@ import Database.PostgreSQL.Simple
 import Database.PostgreSQL.Simple.FromField
 import Database.PostgreSQL.Simple.ToField
 
+import Control.Monad.Fail(MonadFail)
 import qualified Data.List as L
 import qualified Data.List.NonEmpty as NL
 
@@ -271,7 +272,7 @@ pgQueryEntities q =
 
 pgSelectCount
   :: forall m a q
-   . ( Entity a, MonadPostgres m, MonadLogger m, ToSqlBuilder q )
+   . ( Entity a, MonadPostgres m, MonadLogger m, MonadFail m, ToSqlBuilder q )
   => Proxy a
   -> q
   -> m Integer
