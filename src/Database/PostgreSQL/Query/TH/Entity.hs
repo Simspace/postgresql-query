@@ -92,7 +92,12 @@ deriveEntity opts tname = do
         idname = tnames ++ "Id"
         unidname = "get" ++ idname
         idtype = ConT (eoIdType opts)
-#if MIN_VERSION_template_haskell(2,12,0)
+#if MIN_VERSION_template_haskell(2,15,0)
+        idcon = RecC (mkName idname)
+                [(mkName unidname, Bang NoSourceUnpackedness NoSourceStrictness, idtype)]
+        iddec = NewtypeInstD [] (Just [PlainTV entityIdName]) (ConT tname) Nothing
+                idcon [DerivClause Nothing (map ConT $ eoDeriveClasses opts)]
+#elif MIN_VERSION_template_haskell(2,12,0)
         idcon = RecC (mkName idname)
                 [(mkName unidname, Bang NoSourceUnpackedness NoSourceStrictness, idtype)]
         iddec = NewtypeInstD [] entityIdName [ConT tname] Nothing

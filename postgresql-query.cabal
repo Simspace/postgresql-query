@@ -43,8 +43,7 @@ library
                  , Database.PostgreSQL.Query.Types
   other-modules:   Database.PostgreSQL.Query.Import
 
-  default-extensions: AutoDeriveTypeable
-                    , CPP
+  default-extensions: CPP
                     , ConstraintKinds
                     , DataKinds
                     , DeriveDataTypeable
